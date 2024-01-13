@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gsy_app/page/gsy_webview.dart';
+import 'package:gsy_app/page/login/login_webview.dart';
 import 'package:gsy_app/widget/never_overscroll_indicator.dart';
 
 class NavigatorUtils {
-  static Future gotoLoginWebView(BuildContext context, String url, String? title) {
+  static Future gotoGSYWebView(BuildContext context, String url, String? title) {
     return navigatorRouter(context, GSYWebView(url, title));
+  }
+  static Future gotoLoginWebView(BuildContext context, String url, String title) {
+    return navigatorRouter(context, LoginWebView(url, title));
   }
 
   static navigatorRouter(BuildContext context, Widget widget) {

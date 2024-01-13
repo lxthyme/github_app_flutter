@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:redux/redux.dart';
-import 'package:gsy_app/model/user.dart';
+import 'package:gsy_app/model/User.dart';
 
 final UserReducer = combineReducers<User?>([
   TypedReducer<User?, UpdateUserAction>(_updateLoaded),

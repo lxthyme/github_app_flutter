@@ -47,7 +47,7 @@ class GSYColors {
 }
 
 class GSYConstant {
-  static const String app_default_share_url = "https://github.com/CarGuo/gsy_github_app_flutter";
+  static const String app_default_share_url = "https://github.com/lxthyme/gsy_app";
 
   static const lagerTextSize = 30.0;
   static const bigTextSize = 23.0;

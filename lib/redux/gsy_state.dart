@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gsy_app/model/user.dart';
+import 'package:gsy_app/model/User.dart';
 import 'package:gsy_app/redux/user_redux.dart';
 import 'package:redux/redux.dart';
 

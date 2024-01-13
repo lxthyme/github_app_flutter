@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:gsy_app/common/dao/user_dao.dart';
 import 'package:gsy_app/common/net/address.dart';
 import 'package:gsy_app/common/utils/navigator_utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,10 +13,12 @@ class LoginPage extends StatelessWidget {
   oauthLogin(BuildContext context) async {
     final localization = AppLocalizations.of(context)!;
     String? code = await NavigatorUtils.gotoLoginWebView(context, Address.getOAuthUrl(), localization.oauth_text);
-    debugPrint('-->code: $code');
+    debugPrint('-->code[1]: $code');
     if (code != null && code.isNotEmpty) {
       // StoreProvider.of<GSYState>(context).dispatch(O)
     }
+    var res = await UserDao.oauth(code, null);
+    debugPrint('-->login res: $res');
   }
 
   void goMain() {}
