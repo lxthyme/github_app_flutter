@@ -115,6 +115,7 @@ class _DynamicPageState extends State<DynamicPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    debugPrint('-->dynamicBloc.dataList: ${dynamicBloc.dataList}');
     var content = GSYPullLoadWidget(
       dynamicBloc.pullLoadWidgetControl,
       (context, index) => _renderEventItem(dynamicBloc.dataList[index]),

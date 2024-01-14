@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:gsy_app/common/dao/dao_result.dart';
 import 'package:gsy_app/common/net/address.dart';
 import 'package:gsy_app/common/net/api.dart';
@@ -18,6 +19,7 @@ class EventDao {
       String url = Address.getEventReceived(userName) + Address.getPageParams('?', page);
 
       var res = await httpManager.netFetch(url, null, null, null);
+      debugPrint('-->getEventReceived: ${res.toString()}');
       if (res != null && res.result) {
         List<Event> list = [];
         var data = res.data;
