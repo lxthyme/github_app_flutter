@@ -3,16 +3,26 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gsy_app/app.dart';
-import 'package:gsy_app/common/utils/navigator_utils.dart';
 import 'package:gsy_app/env/config_wrapper.dart';
 import 'package:gsy_app/env/dev.dart';
 import 'package:gsy_app/env/env_config.dart';
 import 'package:gsy_app/page/error_page.dart';
-import 'package:gsy_app/test/demo_bloc_page.dart';
+import 'package:gsy_app/page/home/home_page.dart';
+import 'package:gsy_app/page/login/login_page.dart' as login;
 
 @pragma('vm:entry-point')
-void topMain(BuildContext context) {
-  return runApp(NavigatorUtils.pageContainer(LoginPage(), context));
+void gsyHome() {
+  return runApp(ConfigWrapper(
+      config: EnvConfig.fromJson(config),
+      child: FlutterReduxApp(initialRoute: HomePage.sName),
+    ));
+}
+@pragma('vm:entry-point')
+void gsyLogin() {
+  return runApp(ConfigWrapper(
+      config: EnvConfig.fromJson(config),
+      child: FlutterReduxApp(initialRoute: login.LoginPage.sName),
+    ));
 }
 
 void main() {
@@ -36,6 +46,8 @@ void main() {
     debugPrint('-->[runZonedGuarded]stack: $stack');
   });
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

@@ -22,7 +22,8 @@ import 'package:gsy_app/redux/gsy_state.dart';
 import 'package:redux/redux.dart';
 
 class FlutterReduxApp extends StatefulWidget {
-  const FlutterReduxApp({super.key});
+  final String initialRoute;
+  const FlutterReduxApp({super.key, this.initialRoute = '/'});
 
   @override
   State<FlutterReduxApp> createState() => _FlutterReduxAppState();
@@ -92,6 +93,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> with HttpErrorListene
           locale: store.state.locale,
           theme: store.state.themeData,
           navigatorObservers: [navigatorObserver],
+          initialRoute: widget.initialRoute,
           routes: {
             WelcomePage.sName: (context) {
               DebugLabel.showDebugLabel(context);
