@@ -99,11 +99,20 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> with HttpErrorListene
             },
             HomePage.sName: (context) {
               // return NavigatorUtils.pageContainer(const HomePage(), context);
+              debugPrint('-->start 1: /');
               return NavigatorUtils.pageContainer(const DynamicPage(), context);
             },
             LoginPage.sName: (context) {
               return NavigatorUtils.pageContainer(const LoginPage(), context);
             },
+          },
+          onUnknownRoute: (settings) {
+            debugPrint('-->onUnknownRoute: ${settings.name}\t${settings.arguments}\n${settings.toString()}');
+            return null;
+          },
+          onGenerateRoute: (settings) {
+            debugPrint('-->onGenerateRoute: ${settings.name}\t${settings.arguments}\n${settings.toString()}');
+            return null;
           },
         );
 

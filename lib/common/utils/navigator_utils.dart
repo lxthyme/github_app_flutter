@@ -8,18 +8,22 @@ import 'package:gsy_app/widget/never_overscroll_indicator.dart';
 
 class NavigatorUtils {
   static pushNamed(BuildContext context, String routeName) {
+    debugPrint('-->[router]pushNamed: $routeName');
     Navigator.pushNamed(context, routeName);
   }
 
   static goHome(BuildContext context) {
+    debugPrint('-->[router]goHome: ${HomePage.sName}');
     Navigator.pushReplacementNamed(context, HomePage.sName);
   }
 
   static goLogin(BuildContext context) {
+    debugPrint('-->[router]goLogin: ${LoginPage.sName}');
     Navigator.pushReplacementNamed(context, LoginPage.sName);
   }
 
   static gotoPhotoViewPage(BuildContext context, String? url) {
+    debugPrint('-->[router]gotoPhotoViewPage: $url');
     // Navigator.pushNamed(context, PhotoViewP)
   }
 
@@ -32,6 +36,7 @@ class NavigatorUtils {
   }
 
   static Future goReposDetail(BuildContext context, String? userName, String? reposName) {
+    debugPrint('-->[router]goReposDetail: $userName > $reposName');
     return Navigator.push(
         context,
         PageRouteBuilder(
@@ -89,6 +94,7 @@ class NavigatorUtils {
   }
 
   static navigatorRouter(BuildContext context, Widget widget) {
+    debugPrint('-->[router]navigatorRouter: ${widget.runtimeType}');
     return Navigator.push(
       context,
       CupertinoPageRoute(

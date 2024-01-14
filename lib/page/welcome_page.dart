@@ -59,14 +59,14 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreBuilder(
+    return StoreBuilder<GSYState>(
       builder: (context, vm) {
         double size = 200;
         return Material(
           color: GSYColors.white,
           child: Stack(
             children: [
-              Center(
+              const Center(
                 child: Image(image: AssetImage('static/images/welcome.png')),
               ),
               Align(

@@ -6,6 +6,7 @@ import 'package:gsy_app/common/net/address.dart';
 import 'package:gsy_app/common/utils/navigator_utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gsy_app/redux/gsy_state.dart';
+import 'package:gsy_app/redux/login_redux.dart';
 
 class LoginPage extends StatelessWidget {
   static String sName = 'login';
@@ -16,13 +17,16 @@ class LoginPage extends StatelessWidget {
     String? code = await NavigatorUtils.gotoLoginWebView(context, Address.getOAuthUrl(), localization.oauth_text);
     debugPrint('-->code[1]: $code');
     if (code != null && code.isNotEmpty) {
-      // StoreProvider.of<GSYState>(context).dispatch(O)
+      StoreProvider.of<GSYState>(context).dispatch(OAuthAction(context, code));
     }
-    var res = await UserDao.oauth(code, null);
-    debugPrint('-->login res: $res');
+    // var res = await UserDao.oauth(code, null);
+    // debugPrint('-->login res: ${res.toString()}');
   }
 
-  void goMain() {}
+  void goMain(BuildContext context) {
+    NavigatorUtils.goHome(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,7 +42,9 @@ class LoginPage extends StatelessWidget {
                   child: const Text('安全登录'),
                 ),
                 CupertinoButton(
-                  onPressed: goMain,
+                  onPressed: () {
+                    goMain(context);
+                  },
                   child: const Text('去首页'),
                 ),
               ],
