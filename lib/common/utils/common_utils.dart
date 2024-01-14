@@ -1,13 +1,17 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gsy_app/common/config/config.dart';
+import 'package:gsy_app/common/net/address.dart';
 import 'package:gsy_app/common/style/gsy_style.dart';
+import 'package:gsy_app/common/utils/navigator_utils.dart';
 import 'package:gsy_app/redux/gsy_state.dart';
 import 'package:gsy_app/redux/locale_redux.dart';
 import 'package:gsy_app/redux/theme_redux.dart';
+import 'package:gsy_app/widget/gsy_flex_button.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:redux/redux.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,6 +31,58 @@ class CommonUtils {
   static const double DAYS_LIMIT = 30 * HOURS_LIMIT;
 
   static Locale? curLocale;
+
+  static String getDateStr(DateTime? dateTime) {
+    if (dateTime == null || dateTime.toString() == '') {
+      return '';
+    } else if (dateTime.toString().length < 10) {
+      return dateTime.toString();
+    }
+    return dateTime.toString().substring(0, 10);
+  }
+
+  static String getUserChartAddress(String userName) {
+    var host = Address.graphicHost;
+    var color = GSYColors.primaryDarkValueString.replaceAll('#', '');
+    return '$host$color/$userName';
+  }
+
+  ///日期格式转换
+  static String getNewsTimeStr(DateTime date) {
+    int subTimes = DateTime.now().millisecondsSinceEpoch - date.millisecondsSinceEpoch;
+    return switch (subTimes) {
+      < MILLIS_LIMIT => (curLocale != null)
+          ? (curLocale!.languageCode != "zh")
+              ? "right now"
+              : "刚刚"
+          : "刚刚",
+      < SECONDS_LIMIT => (subTimes / MILLIS_LIMIT).round().toString() +
+          ((curLocale != null)
+              ? (curLocale!.languageCode != "zh")
+                  ? " seconds ago"
+                  : " 秒前"
+              : " 秒前"),
+      < MINUTES_LIMIT => (subTimes / SECONDS_LIMIT).round().toString() +
+          ((curLocale != null)
+              ? (curLocale!.languageCode != "zh")
+                  ? " min ago"
+                  : " 分钟前"
+              : " 分钟前"),
+      < HOURS_LIMIT => (subTimes / MINUTES_LIMIT).round().toString() +
+          ((curLocale != null)
+              ? (curLocale!.languageCode != "zh")
+                  ? " hours ago"
+                  : " 小时前"
+              : " 小时前"),
+      < DAYS_LIMIT => (subTimes / HOURS_LIMIT).round().toString() +
+          ((curLocale != null)
+              ? (curLocale!.languageCode != "zh")
+                  ? " days ago"
+                  : " 天前"
+              : " 天前"),
+      _ => getDateStr(date)
+    };
+  }
 
   static getApplicationDocumentsPath() async {
     Directory appDir;
@@ -136,6 +192,18 @@ class CommonUtils {
     }
   }
 
+  static void launchWebView(BuildContext context, String? title, String url) {
+    if (url.startsWith('http')) {
+      NavigatorUtils.gotoGSYWebView(context, url, title);
+    } else {
+      NavigatorUtils.gotoGSYWebView(
+        context,
+        Uri.dataFromString(url, mimeType: 'text/html', encoding: Encoding.getByName('utf-8')).toString(),
+        title,
+      );
+    }
+  }
+
   static launchOutURL(String? url, BuildContext context) async {
     final localization = AppLocalizations.of(context)!;
     if (url != null && await canLaunchUrl(Uri.parse(url))) {
@@ -143,5 +211,76 @@ class CommonUtils {
     } else {
       Fluttertoast.showToast(msg: '${localization.option_web_launcher_error}: $url');
     }
+  }
+
+  static Future<Null> showCommitOptionDialog(
+    BuildContext context,
+    List<String?>? commitMaps,
+    ValueChanged<int> onTap, {
+    width = 250,
+    height = 400,
+    List<Color>? colorList,
+  }) {
+    return NavigatorUtils.showGSYDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: Container(
+            width: width,
+            height: height,
+            padding: const EdgeInsets.all(4),
+            margin: const EdgeInsets.all(20),
+            decoration: const BoxDecoration(
+              color: GSYColors.white,
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+            ),
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                return GSYFlexButton(
+                  maxLines: 1,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  fontSize: 14,
+                  color: colorList != null ? colorList[index] : Theme.of(context).primaryColor,
+                  text: commitMaps![index],
+                  textColor: GSYColors.white,
+                  onPress: () {
+                    Navigator.pop(context);
+                    onTap(index);
+                  },
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  static Future<Null> showUpdateDialog(BuildContext context, String contentMsg) {
+    final localization = AppLocalizations.of(context)!;
+    return NavigatorUtils.showGSYDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(localization.app_version_title),
+          content: Text(contentMsg),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(localization.app_cancel),
+            ),
+            TextButton(
+              onPressed: () {
+                launchUrl(Uri.parse(Address.updateUrl));
+                Navigator.pop(context);
+              },
+              child: Text(localization.app_ok),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

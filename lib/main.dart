@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:gsy_app/app_template.dart';
+import 'package:gsy_app/app.dart';
+import 'package:gsy_app/env/config_wrapper.dart';
+import 'package:gsy_app/env/dev.dart';
+import 'package:gsy_app/env/env_config.dart';
 import 'package:gsy_app/page/error_page.dart';
-import 'package:gsy_app/page/login/login_page.dart';
 
 void main() {
   runZonedGuarded(() {
@@ -16,7 +18,11 @@ void main() {
       );
     };
     // runApp(const MyApp());
-    runApp(const AppTemplate(widget: LoginPage()));
+    // runApp(const AppTemplate(widget: LoginPage()));
+    runApp(ConfigWrapper(
+      config: EnvConfig.fromJson(config),
+      child: const FlutterReduxApp(),
+    ));
     GestureBinding.instance.resamplingEnabled = true;
   }, (error, stack) {
     debugPrint('-->error: $error');

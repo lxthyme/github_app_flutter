@@ -8,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gsy_app/redux/gsy_state.dart';
 
 class LoginPage extends StatelessWidget {
+  static String sName = 'login';
   const LoginPage({super.key});
 
   oauthLogin(BuildContext context) async {
@@ -26,20 +27,22 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Column(
-            children: [
-              CupertinoButton(
-                onPressed: () {
-                  oauthLogin(context);
-                },
-                child: const Text('安全登录'),
-              ),
-              CupertinoButton(
-                onPressed: goMain,
-                child: const Text('去首页'),
-              ),
-            ],
+        body: SafeArea(
+          child: Center(
+            child: Column(
+              children: [
+                CupertinoButton(
+                  onPressed: () {
+                    oauthLogin(context);
+                  },
+                  child: const Text('安全登录'),
+                ),
+                CupertinoButton(
+                  onPressed: goMain,
+                  child: const Text('去首页'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

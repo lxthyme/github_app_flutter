@@ -35,7 +35,7 @@ class UserDao {
 
       resultData = await getUserInfo(null);
       if (Config.DEBUG!) {
-        debugPrint('-->user result: ${resultData.reult.toString()}');
+        debugPrint('-->user result: ${resultData.result.toString()}');
         debugPrint('-->resultData.data: ${resultData.data}');
         debugPrint('-->res.data: ${res.data.toString()}');
       }

@@ -60,7 +60,7 @@ class _LoginWebViewState extends State<LoginWebView> {
           onNavigationRequest: (request) {
             if (request.url.startsWith('gsygithubapp://authed')) {
               var code = Uri.parse(request.url).queryParameters['code'];
-              debugPrint('-->code: $code');
+              debugPrint('-->code[2]: $code');
               Navigator.of(context).pop(code);
               return NavigationDecision.prevent;
             }

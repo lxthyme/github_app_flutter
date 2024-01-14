@@ -14,20 +14,18 @@ class _ErrorPageState extends State<ErrorPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Row(
-            children: [
-              const Text(
-                'Error Info',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              Text(widget.errorMessage),
-            ],
+        appBar: AppBar(
+          title: const Text(
+            'Error Info',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
           ),
+        ),
+        body: Expanded(
+          child: Text(widget.errorMessage),
         ),
       ),
     );

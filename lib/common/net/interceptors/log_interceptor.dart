@@ -1,6 +1,7 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
-import 'package:gsy_github_app_flutter/common/config/config.dart';
+import 'package:gsy_app/common/config/config.dart';
 
 /**
  * Log 拦截器
