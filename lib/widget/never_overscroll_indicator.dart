@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 
+///去除ScrollView的Material效果
 class NeverOverScrollIndicator extends StatelessWidget {
   final bool needOverload;
-  final Widget child;
-  const NeverOverScrollIndicator({super.key, required this.child, this.needOverload = true});
+
+  final Widget? child;
+
+  NeverOverScrollIndicator({this.child, this.needOverload = true});
 
   @override
   Widget build(BuildContext context) {
     return ScrollConfiguration(
-      behavior: NeverScrollBehavior(needOverload: needOverload),
-      child: child,
+      child: child!,
+      behavior: NeverOverScrollBehavior(needOverload: needOverload),
     );
   }
 }
 
-class NeverScrollBehavior extends ScrollBehavior {
+class NeverOverScrollBehavior extends ScrollBehavior {
   final bool needOverload;
 
-  const NeverScrollBehavior({this.needOverload = true});
+  NeverOverScrollBehavior({this.needOverload = true});
 
   @override
   Widget buildOverscrollIndicator(BuildContext context, Widget child, ScrollableDetails details) {

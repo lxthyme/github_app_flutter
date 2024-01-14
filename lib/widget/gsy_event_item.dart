@@ -23,7 +23,11 @@ class GSYEventItem extends StatelessWidget {
         : Container(
             margin: const EdgeInsets.only(top: 6, bottom: 2),
             alignment: Alignment.topLeft,
-            child: Text(eventVM.actionDes ?? '--', style: GSYConstant.smallSubText, maxLines: 3),
+            child: Text(
+              eventVM.actionDes ?? '--',
+              style: GSYConstant.smallSubText,
+              maxLines: 3,
+            ),
           );
     Widget userImage = needImage
         ? GSYUserIconWidget(

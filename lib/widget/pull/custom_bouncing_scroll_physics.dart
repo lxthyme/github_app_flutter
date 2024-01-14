@@ -7,8 +7,7 @@ class CustomBouncingScrollPhysics extends ScrollPhysics {
   final double refreshHeight;
 
   const CustomBouncingScrollPhysics(
-      {ScrollPhysics? parent, this.refreshHeight = 140})
-      : super(parent: parent);
+      {ScrollPhysics? super.parent, this.refreshHeight = 140});
 
   @override
   CustomBouncingScrollPhysics applyTo(ScrollPhysics? ancestor) {
@@ -67,7 +66,7 @@ class CustomBouncingScrollPhysics extends ScrollPhysics {
   @override
   Simulation? createBallisticSimulation(
       ScrollMetrics position, double velocity) {
-    final Tolerance tolerance = this.tolerance;
+    final Tolerance tolerance = toleranceFor(position);
     if (velocity.abs() >= tolerance.velocity || position.outOfRange) {
       return BouncingScrollSimulation(
         spring: spring,

@@ -6,10 +6,10 @@ import 'package:gsy_app/model/Branch.dart';
 
 part 'transformer.g.dart';
 
-@SerializersFor(const [
+@SerializersFor([
   Branch,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
-  ..addPlugin(new StandardJsonPlugin())
-  ..add(new Iso8601DateTimeSerializer())
+  ..addPlugin(StandardJsonPlugin())
+  ..add(Iso8601DateTimeSerializer())
 ).build();

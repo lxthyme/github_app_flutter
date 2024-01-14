@@ -12,19 +12,19 @@ class ConfigWrapper extends StatelessWidget {
     this.child,
   });
 
-  static EnvConfig? of(BuildContext context) {
-    final _InheritedConfig inheritedConfig = context.dependOnInheritedWidgetOfExactType<_InheritedConfig>()!;
-    return inheritedConfig.config;
-  }
-
   @override
   Widget build(BuildContext context) {
     Config.DEBUG = config?.debug;
-    debugPrint('ConfigWrapper build ${Config.DEBUG}');
+    debugPrint('-->ConfigWrapper build ${Config.DEBUG}');
     return _InheritedConfig(
       config: config,
       child: child!,
     );
+  }
+
+  static EnvConfig? of(BuildContext context) {
+    final _InheritedConfig inheritedConfig = context.dependOnInheritedWidgetOfExactType<_InheritedConfig>()!;
+    return inheritedConfig.config;
   }
 }
 

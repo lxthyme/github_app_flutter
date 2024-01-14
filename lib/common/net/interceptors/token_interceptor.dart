@@ -16,7 +16,7 @@ class TokenInterceptors extends InterceptorsWrapper {
         await initClient(_token);
       }
     }
-    if (_token == null) {
+    if (_token != null) {
       options.headers['Authorization'] = _token;
     }
     return super.onRequest(options, handler);
@@ -27,7 +27,7 @@ class TokenInterceptors extends InterceptorsWrapper {
     try {
       var responseJson = response.data;
       if (response.statusCode == 201 && responseJson['token'] != null) {
-        _token = 'token${responseJson['token']}';
+        _token = 'token ${responseJson['token']}';
         await LocalStorage.save(Config.TOKEN_KEY, _token);
       }
     } catch (e) {

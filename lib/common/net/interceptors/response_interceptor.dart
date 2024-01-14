@@ -20,6 +20,6 @@ class ResponseInterceptors extends InterceptorsWrapper {
       value = ResultData(response.data, false, response.statusCode, headers: response.headers);
     }
     response.data = value;
-    return super.onResponse(response, handler);
+    return handler.next(response);
   }
 }

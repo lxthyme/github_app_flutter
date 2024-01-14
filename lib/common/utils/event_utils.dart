@@ -11,7 +11,7 @@ import 'package:gsy_app/common/utils/navigator_utils.dart';
  */
 class EventUtils {
   ///事件描述与动作
-  static getActionAndDes(Event event) {
+  static ({String? actionStr, String? des})getActionAndDes(Event event) {
     String? actionStr;
     String? des;
     switch (event.type) {
@@ -143,7 +143,7 @@ class EventUtils {
         break;
     }
 
-    return {"actionStr": actionStr, "des": des != null ? des : ""};
+    return (actionStr: actionStr, des: des != null ? des : "");
   }
 
   ///跳转
@@ -152,8 +152,7 @@ class EventUtils {
       NavigatorUtils.goPerson(context, event.actor!.login);
       return;
     }
-    String owner = event.repo!.name!.split("/")[0];
-    String repositoryName = event.repo!.name!.split("/")[1];
+    var [owner, repositoryName] = event.repo!.name!.split("/");
     String fullName = owner + '/' + repositoryName;
     switch (event.type) {
       case 'ForkEvent':

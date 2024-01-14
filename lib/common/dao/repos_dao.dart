@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:gsy_app/common/localization/default_localizations.dart';
 import 'package:gsy_app/common/net/graph/client.dart';
 import 'package:gsy_app/common/net/transformer.dart';
 import 'package:gsy_app/db/provider/repos/read_history_db_provider.dart';
@@ -766,10 +767,11 @@ class ReposDao {
       try {
         StringList? link = res.headers['link'];
         if (link != null) {
-          int indexStart = link[0].lastIndexOf("page=") + 5;
-          int indexEnd = link[0].lastIndexOf(">");
+          var [linkFirst, _] = link;
+          int indexStart = linkFirst.lastIndexOf("page=") + 5;
+          int indexEnd = linkFirst.lastIndexOf(">");
           if (indexStart >= 0 && indexEnd >= 0) {
-            String count = link[0].substring(indexStart, indexEnd);
+            String count = linkFirst.substring(indexStart, indexEnd);
             return new DataResult(count, true);
           }
         }

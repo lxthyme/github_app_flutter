@@ -1,6 +1,7 @@
 import 'package:gsy_app/common/event/http_error_event.dart';
 import 'package:gsy_app/common/event/index.dart';
 
+///错误编码
 class Code {
   ///网络错误
   static const NETWORK_ERROR = -1;
@@ -20,12 +21,10 @@ class Code {
     if (noTip) {
       return message;
     }
-    if (message != null &&
-        message is String &&
-        (message.contains('Connection refuse') || message.contains('Connection reset'))) {
+    if(message != null && message is String && (message.contains("Connection refused") || message.contains("Connection reset"))) {
       code = GITHUB_API_REFUSED;
     }
-    eventBus.fire(HttpErrorEvent(code, message));
+    eventBus.fire(new HttpErrorEvent(code, message));
     return message;
   }
 }

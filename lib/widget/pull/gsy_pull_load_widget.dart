@@ -133,7 +133,7 @@ class _GSYPullLoadWidgetState extends State<GSYPullLoadWidget> {
   Widget _buildEmpty() {
     final localization = AppLocalizations.of(context)!;
     return new Container(
-      height: MediaQuery.of(context).size.height - 100,
+      height: MediaQuery.sizeOf(context).height - 100,
       child: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -195,7 +195,7 @@ class GSYPullLoadWidgetControl {
   List dataList = [];
 
   ///是否需要加载更多
-  ValueNotifier<bool> needLoadMore = ValueNotifier(false);
+  ValueNotifier<bool> needLoadMore = new ValueNotifier(false);
 
   ///是否需要头部
   bool needHeader = false;

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:gsy_app/common/config/config.dart';
 
@@ -54,38 +52,35 @@ class LogsInterceptors extends InterceptorsWrapper {
     if (Config.DEBUG!) {
       print('返回参数: ' + response.toString());
     }
-    if (response.data is Map || response.data is List) {
-      try {
-        var data = Map<String, dynamic>();
-        data["data"] = response.data;
-        addLogic(sResponsesHttpUrl, response.requestOptions.uri.toString());
-        addLogic(sHttpResponses, data);
-      } catch (e) {
-        print(e);
-      }
-    } else if (response.data is String) {
-      try {
-        var data = Map<String, dynamic>();
-        data["data"] = response.data;
-        addLogic(sResponsesHttpUrl, response.requestOptions.uri.toString());
-        addLogic(sHttpResponses, data);
-      } catch (e) {
-        print(e);
-      }
-    } else if (response.data != null) {
-      try {
-        String data = response.data.toJson();
-        addLogic(sResponsesHttpUrl, response.requestOptions.uri.toString());
-        addLogic(sHttpResponses, json.decode(data));
-      } catch (e) {
-        print(e);
-      }
+    switch (response.data.runtimeType) {
+      case Map || List:
+        {
+          try {
+            var data = Map<String, dynamic>();
+            data["data"] = response.data;
+            addLogic(sResponsesHttpUrl, response.requestOptions.uri.toString());
+            addLogic(sHttpResponses, data);
+          } catch (e) {
+            print(e);
+          }
+        }
+      case String:
+        {
+          try {
+            var data = Map<String, dynamic>();
+            data["data"] = response.data;
+            addLogic(sResponsesHttpUrl, response.requestOptions.uri.toString());
+            addLogic(sHttpResponses, data);
+          } catch (e) {
+            print(e);
+          }
+        }
     }
     return super.onResponse(response, handler);
   }
 
   @override
-  onError(DioError err, handler) async {
+  onError(DioException err, handler) async {
     if (Config.DEBUG!) {
       print('请求异常: ' + err.toString());
       print('请求异常信息: ' + (err.response?.toString() ?? ""));

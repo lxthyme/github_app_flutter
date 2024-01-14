@@ -34,11 +34,11 @@ class UserDao {
       await LocalStorage.save(Config.TOKEN_KEY, _token);
 
       resultData = await getUserInfo(null);
-      if (Config.DEBUG!) {
-        debugPrint('-->user result: ${resultData.result.toString()}');
-        debugPrint('-->resultData.data: ${resultData.data}');
-        debugPrint('-->res.data: ${res.data.toString()}');
-      }
+      // if (Config.DEBUG!) {
+      debugPrint('-->user result: ${resultData.result.toString()}');
+      debugPrint('-->resultData.data: ${resultData.data}');
+      debugPrint('-->res.data: ${res.data.toString()}');
+      // }
       if (resultData.result == true) {
         // store.dispatch(UpdateUserAction(resultData.data));
       }
@@ -48,7 +48,7 @@ class UserDao {
   }
 
   static login(userName, password, store) async {
-    debugPrint('-->func login');
+    debugPrint('-->login todo...');
   }
 
   static initUserInfo(Store<GSYState> store) async {
@@ -59,12 +59,12 @@ class UserDao {
     }
 
     String? themeIndex = await LocalStorage.get(Config.THEME_COLOR);
-    if (themeIndex != null && themeIndex.length != 0) {
+    if (themeIndex != null && themeIndex.isNotEmpty) {
       CommonUtils.pushTheme(store, int.parse(themeIndex));
     }
 
     String? localeIndex = await LocalStorage.get(Config.LOCALE);
-    if (localeIndex != null && localeIndex.length != 0) {
+    if (localeIndex != null && localeIndex.isNotEmpty) {
       CommonUtils.changeLocale(store, int.parse(localeIndex));
     } else {
       CommonUtils.curLocale = store.state.platformLocale;
@@ -79,6 +79,7 @@ class UserDao {
     if (userText != null) {
       var userMap = json.decode(userText);
       User user = User.fromJson(userMap);
+      debugPrint('-->getUserInfoLocal: $user');
       return DataResult(user, true);
     } else {
       return DataResult(null, false);
@@ -111,6 +112,7 @@ class UserDao {
             provider.insert(userName, json.encode(user.toJson()));
           }
         }
+        debugPrint('-->getUserInfo: $user');
         return DataResult(user, true);
       } else {
         return DataResult(res.data, false);
@@ -123,6 +125,7 @@ class UserDao {
         return await next();
       }
       DataResult dataResult = DataResult(user, true, next: next);
+      debugPrint('-->getUserInfo: $user');
       return dataResult;
     }
     return await next();

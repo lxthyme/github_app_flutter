@@ -8,16 +8,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 class _CupertinoSliverRefresh extends SingleChildRenderObjectWidget {
   const _CupertinoSliverRefresh({
-    Key? key,
     this.refreshIndicatorLayoutExtent = 0.0,
     this.hasLayoutExtent = false,
-    Widget? child,
-  })  : assert(refreshIndicatorLayoutExtent >= 0.0),
-        super(key: key, child: child);
+    Widget? super.child,
+  })  : assert(refreshIndicatorLayoutExtent >= 0.0);
 
   // The amount of space the indicator should occupy in the sliver in a
   // resting state when in the refreshing mode.
@@ -280,7 +277,7 @@ class CupertinoSliverRefreshControl extends StatefulWidget {
   /// The [onRefresh] argument will be called when pulled far enough to trigger
   /// a refresh.
   const CupertinoSliverRefreshControl({
-    Key? key,
+    Key? super.key,
     this.refreshTriggerPullDistance = _defaultRefreshTriggerPullDistance,
     this.refreshIndicatorExtent = _defaultRefreshIndicatorExtent,
     this.builder = buildSimpleRefreshIndicator,
@@ -290,8 +287,7 @@ class CupertinoSliverRefreshControl extends StatefulWidget {
         assert(
             refreshTriggerPullDistance >= refreshIndicatorExtent,
             'The refresh indicator cannot take more space in its final state '
-            'than the amount initially created by overscrolling.'),
-        super(key: key);
+            'than the amount initially created by overscrolling.');
 
   /// The amount of overscroll the scrollable must be dragged to trigger a reload.
   ///
@@ -427,10 +423,10 @@ class CupertinoSliverRefreshControlState
       nextState = RefreshIndicatorMode.done;
       // Either schedule the RenderSliver to re-layout on the next frame
       // when not currently in a frame or schedule it on the next frame.
-      if (SchedulerBinding.instance!.schedulerPhase == SchedulerPhase.idle) {
+      if (SchedulerBinding.instance.schedulerPhase == SchedulerPhase.idle) {
         setState(() => hasSliverLayoutExtent = false);
       } else {
-        SchedulerBinding.instance!.addPostFrameCallback((Duration timestamp) {
+        SchedulerBinding.instance.addPostFrameCallback((Duration timestamp) {
           setState(() => hasSliverLayoutExtent = false);
         });
       }
@@ -456,7 +452,7 @@ class CupertinoSliverRefreshControlState
           ///超过 refreshTriggerPullDistance 就可以进入准备刷新的装备状态
           if (widget.onRefresh != null) {
             HapticFeedback.mediumImpact();
-            SchedulerBinding.instance!
+            SchedulerBinding.instance
                 .addPostFrameCallback((Duration timestamp) {
               needRefresh = true;
               setState(() => hasSliverLayoutExtent = true);
@@ -492,7 +488,7 @@ class CupertinoSliverRefreshControlState
           ///还没有触发外部刷新，触发一下
           if (widget.onRefresh != null && refreshTask == null) {
             HapticFeedback.mediumImpact();
-            SchedulerBinding.instance!
+            SchedulerBinding.instance
                 .addPostFrameCallback((Duration timestamp) {
               ///任务完成后清洗状态
               refreshTask = widget.onRefresh!()

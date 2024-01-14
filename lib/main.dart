@@ -13,7 +13,7 @@ void main() {
     ErrorWidget.builder = (details) {
       Zone.current.handleUncaughtError(details.exception, details.stack!);
       return ErrorPage(
-        '${details.exception}\n${details.stack}',
+        '${details.exception.toString()}\n ${details.stack.toString()}',
         details,
       );
     };
@@ -25,8 +25,8 @@ void main() {
     ));
     GestureBinding.instance.resamplingEnabled = true;
   }, (error, stack) {
-    debugPrint('-->error: $error');
-    debugPrint('-->stack: $stack');
+    debugPrint('-->[runZonedGuarded]error: $error');
+    debugPrint('-->[runZonedGuarded]stack: $stack');
   });
 }
 

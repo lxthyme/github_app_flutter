@@ -1,12 +1,15 @@
 import 'package:flare_flutter/flare_actor.dart';
+
 import 'package:gsy_app/widget/pull/gsy_refresh_sliver.dart'
     as IOS;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gsy_app/common/style/gsy_style.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'custom_bouncing_scroll_physics.dart';
 import 'gsy_flare_pull_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 const double iosRefreshHeight = 140;
 const double iosRefreshIndicatorExtent = 100;
@@ -251,7 +254,7 @@ class _GSYPullLoadWidgetState extends State<GSYPullLoadWidget>
   Widget _buildEmpty() {
     final localization = AppLocalizations.of(context)!;
     return new Container(
-      height: MediaQuery.of(context).size.height - 100,
+      height: MediaQuery.sizeOf(context).height - 100,
       child: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -333,7 +336,7 @@ class _GSYPullLoadWidgetState extends State<GSYPullLoadWidget>
       alignment: Alignment.bottomCenter,
       child: new Container(
         color: Colors.black,
-        width: MediaQuery.of(context!).size.width,
+        width: MediaQuery.sizeOf(context!).width,
 
         ///动态大小处理
         height:
