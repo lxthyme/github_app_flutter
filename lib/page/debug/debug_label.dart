@@ -25,7 +25,7 @@ class DebugLabel {
     PackageInfo packInfo = await PackageInfo.fromPlatform();
 
     // var language = localization.locale.languageCode;
-    var language = 'zh';
+    var language = CommonUtils.curLocale?.languageCode;
     if (_overlayEntry != null) {
       _overlayEntry!.remove();
       _overlayEntry = null;
