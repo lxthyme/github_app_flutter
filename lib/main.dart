@@ -3,10 +3,17 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gsy_app/app.dart';
+import 'package:gsy_app/common/utils/navigator_utils.dart';
 import 'package:gsy_app/env/config_wrapper.dart';
 import 'package:gsy_app/env/dev.dart';
 import 'package:gsy_app/env/env_config.dart';
 import 'package:gsy_app/page/error_page.dart';
+import 'package:gsy_app/test/demo_bloc_page.dart';
+
+@pragma('vm:entry-point')
+void topMain(BuildContext context) {
+  return runApp(NavigatorUtils.pageContainer(LoginPage(), context));
+}
 
 void main() {
   runZonedGuarded(() {
