@@ -12,9 +12,12 @@ import 'package:gsy_app/common/style/gsy_style.dart';
 import 'package:gsy_app/common/utils/common_utils.dart';
 import 'package:gsy_app/common/utils/navigator_utils.dart';
 import 'package:gsy_app/model/User.dart';
+import 'package:gsy_app/page/debug/debug_label.dart';
 import 'package:gsy_app/page/dynamic/dynamic_page.dart';
+import 'package:gsy_app/page/error_page.dart';
 import 'package:gsy_app/page/home/home_page.dart';
 import 'package:gsy_app/page/login/login_page.dart';
+import 'package:gsy_app/page/welcome_page.dart';
 import 'package:gsy_app/redux/gsy_state.dart';
 import 'package:redux/redux.dart';
 
@@ -65,7 +68,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> with HttpErrorListene
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 0), () {
+    Future.delayed(const Duration(seconds: 0), () {
       navigatorObserver.navigator?.context;
       navigatorObserver.navigator;
     });
@@ -90,6 +93,10 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> with HttpErrorListene
           theme: store.state.themeData,
           navigatorObservers: [navigatorObserver],
           routes: {
+            WelcomePage.sName: (context) {
+              DebugLabel.showDebugLabel(context);
+              return const WelcomePage();
+            },
             HomePage.sName: (context) {
               // return NavigatorUtils.pageContainer(const HomePage(), context);
               return NavigatorUtils.pageContainer(const DynamicPage(), context);

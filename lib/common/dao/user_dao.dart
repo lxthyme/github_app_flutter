@@ -128,6 +128,12 @@ class UserDao {
     return await next();
   }
 
+  static clearAll(Store store) async {
+    httpManager.clearAuthorization();
+    LocalStorage.remove(Config.USER_INFO);
+    store.dispatch(UpdateUserAction(User.empty()));
+  }
+
   static getUserStarredCountNet(userName) async {
     String url = Address.userStar(userName, null) + '&per_page=1';
     var res = await httpManager.netFetch(url, null, null, null);

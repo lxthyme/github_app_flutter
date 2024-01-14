@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gsy_app/common/config/config.dart';
 import 'package:gsy_app/common/net/address.dart';
@@ -156,6 +158,15 @@ class CommonUtils {
     );
   }
 
+  static Future<String> getDeviceInfo() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      return '';
+    }
+    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    return iosInfo.model;
+  }
+
   static changeLocale(Store<GSYState> store, int index) {
     Locale? locale = store.state.platformLocale;
     debugPrint('-->locale: ${store.state.platformLocale}');
@@ -211,6 +222,47 @@ class CommonUtils {
     } else {
       Fluttertoast.showToast(msg: '${localization.option_web_launcher_error}: $url');
     }
+  }
+
+  static Future<Null> showLoadingDialog(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+    return NavigatorUtils.showGSYDialog(
+      context: context,
+      builder: (context) {
+        return Material(
+          color: Colors.transparent,
+          child: PopScope(
+            canPop: false,
+            child: Center(
+              child: Container(
+                width: 200,
+                height: 200,
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SpinKitCubeGrid(
+                      color: GSYColors.white,
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    Text(
+                      localization.loading_text,
+                      style: GSYConstant.normalTextWhite,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   static Future<Null> showCommitOptionDialog(
