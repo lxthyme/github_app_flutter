@@ -34,3 +34,8 @@ dart run build_runner build --delete-conflicting-outputs
 ```sh
 dart run build_runner watch --delete-conflicting-outputs
 ```
+
+3. build
+```sh
+flutter build ios-framework --cocoapods --no-debug --no-profile --output=../3rd/gsy_app
+```
