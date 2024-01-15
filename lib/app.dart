@@ -12,6 +12,7 @@ import 'package:gsy_app/common/style/gsy_style.dart';
 import 'package:gsy_app/common/utils/common_utils.dart';
 import 'package:gsy_app/common/utils/navigator_utils.dart';
 import 'package:gsy_app/model/User.dart';
+import 'package:gsy_app/page/assets-test.dart';
 import 'package:gsy_app/page/debug/debug_label.dart';
 import 'package:gsy_app/page/dynamic/dynamic_page.dart';
 import 'package:gsy_app/page/error_page.dart';
@@ -19,6 +20,7 @@ import 'package:gsy_app/page/home/home_page.dart';
 import 'package:gsy_app/page/login/login_page.dart';
 import 'package:gsy_app/page/welcome_page.dart';
 import 'package:gsy_app/redux/gsy_state.dart';
+import 'package:gsy_app/router.dart';
 import 'package:redux/redux.dart';
 
 class FlutterReduxApp extends StatefulWidget {
@@ -95,16 +97,23 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> with HttpErrorListene
           navigatorObservers: [navigatorObserver],
           initialRoute: widget.initialRoute,
           routes: {
-            WelcomePage.sName: (context) {
+            RouterName.assetTest: (context) {
               DebugLabel.showDebugLabel(context);
+              debugPrint('-->router: AssetsTest');
+              return const AssetsTest();
+            },
+            RouterName.welcome: (context) {
+              DebugLabel.showDebugLabel(context);
+              debugPrint('-->router: WelcomePage');
               return const WelcomePage();
             },
-            HomePage.sName: (context) {
+            RouterName.home: (context) {
               // return NavigatorUtils.pageContainer(const HomePage(), context);
-              debugPrint('-->start 1: /');
+              debugPrint('-->router: HomePage');
               return NavigatorUtils.pageContainer(const DynamicPage(), context);
             },
-            LoginPage.sName: (context) {
+            RouterName.login: (context) {
+              debugPrint('-->router: LoginPage');
               return NavigatorUtils.pageContainer(const LoginPage(), context);
             },
           },

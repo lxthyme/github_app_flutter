@@ -11,12 +11,15 @@ class AssetsTest extends StatelessWidget {
     return StoreBuilder<GSYState>(builder: (context, vm) {
       return const Material(
         color: GSYColors.white,
-        child: Center(
-          child: Column(
-            children: [
-              Text('Assets Test'),
-              Image(image: AssetImage('static/images/logo.png')),
-            ],
+        child: SafeArea(
+          child: Center(
+            child: Column(
+              children: [
+                Text('Assets Test'),
+                Image(image: AssetImage('packages/static/images/logo.png')),
+                // Image(image: AssetImage('static/images/logo.png', package: 'gsy_app')),
+              ],
+            ),
           ),
         ),
       );

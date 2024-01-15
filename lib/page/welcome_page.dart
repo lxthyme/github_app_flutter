@@ -11,7 +11,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart';
 
 class WelcomePage extends StatefulWidget {
-  static String sName = '/';
   const WelcomePage({super.key});
 
   @override

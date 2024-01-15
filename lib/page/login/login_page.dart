@@ -9,7 +9,6 @@ import 'package:gsy_app/redux/gsy_state.dart';
 import 'package:gsy_app/redux/login_redux.dart';
 
 class LoginPage extends StatelessWidget {
-  static String sName = 'login';
   const LoginPage({super.key});
 
   oauthLogin(BuildContext context) async {
