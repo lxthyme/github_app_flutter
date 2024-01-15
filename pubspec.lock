@@ -810,10 +810,10 @@ packages:
     dependency: "direct main"
     description:
       name: provider
-      sha256: dc18c7bddb94a1eb3c3154587d16175a657356c80566712e6cd8ca4825eae112
+      sha256: "7896193cf752c40ba7f7732a95264319a787871e5d628225357f5c909182bc06"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.1"
+    version: "6.0.2"
   pub_semver:
     dependency: "direct main"
     description:
