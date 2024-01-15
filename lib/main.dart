@@ -6,12 +6,14 @@ import 'package:gsy_app/app.dart';
 import 'package:gsy_app/env/config_wrapper.dart';
 import 'package:gsy_app/env/dev.dart';
 import 'package:gsy_app/env/env_config.dart';
+import 'package:gsy_app/page/assets-test.dart';
 import 'package:gsy_app/page/error_page.dart';
 import 'package:gsy_app/page/home/home_page.dart';
 import 'package:gsy_app/page/login/login_page.dart' as login;
 
 @pragma('vm:entry-point')
 void gsyHome() {
+  // return runApp(const AssetsTest());
   return runApp(ConfigWrapper(
       config: EnvConfig.fromJson(config),
       child: FlutterReduxApp(initialRoute: HomePage.sName),
