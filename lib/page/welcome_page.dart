@@ -66,7 +66,7 @@ class _WelcomePageState extends State<WelcomePage> {
           child: Stack(
             children: [
               const Center(
-                child: Image(image: AssetImage('static/images/welcome.png')),
+                child: Image(image: AssetImage('static/images/welcome.png', package: 'gsy_app')),
               ),
               Align(
                 alignment: Alignment(0, 0.3),

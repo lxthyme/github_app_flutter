@@ -133,7 +133,7 @@ class _GSYNestedPullLoadWidgetState extends State<GSYNestedPullLoadWidget> {
           TextButton(
             onPressed: () {},
             child: new Image(
-                image: new AssetImage(GSYICons.DEFAULT_USER_ICON),
+                image: new AssetImage(GSYICons.DEFAULT_USER_ICON, package: 'gsy_app'),
                 width: 70.0,
                 height: 70.0),
           ),
