@@ -55,6 +55,7 @@ class UserDao {
   static initUserInfo(Store<GSYState> store) async {
     var token = await LocalStorage.get(Config.TOKEN_KEY);
     var res = await getUserInfoLocal();
+    debugPrint('-->initUserInfo: ${res.toString()}');
     if (res != null && res.result && token != null) {
       store.dispatch(UpdateUserAction(res.data));
     }
