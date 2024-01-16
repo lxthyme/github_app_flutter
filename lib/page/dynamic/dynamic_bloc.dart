@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:gsy_app/common/config/config.dart';
 import 'package:gsy_app/common/dao/event_dao.dart';
 import 'package:gsy_app/widget/pull/gsy_pull_new_load_widget.dart';
@@ -10,6 +11,7 @@ class DynamicBloc {
   requestRefresh(String? userName, {doNextFlag = true}) async {
     pageReset();
     var res = await EventDao.getEventReceived(userName, page: _page, needDb: true);
+    debugPrint('-->requestRefresh[getEventReceived:$userName:$_page]: ${res.toString()}');
     changeLoadMoreStatus(getLoadMoreStatus(res));
     refreshData(res);
     if (doNextFlag) {
@@ -21,6 +23,7 @@ class DynamicBloc {
   requestLoadMore(String? userName) async {
     pageUp();
     var res = await EventDao.getEventReceived(userName, page: _page);
+    debugPrint('-->requestLoadMore[getEventReceived:$userName:$_page]: ${res.toString()}');
     changeLoadMoreStatus(getLoadMoreStatus(res));
     loadMoreData(res);
     return res;

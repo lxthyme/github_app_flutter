@@ -6,7 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gsy_app/common/event/http_error_event.dart';
 import 'package:gsy_app/common/event/index.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gsy_app/l10n/gen_l10n/app_localizations.dart';
 import 'package:gsy_app/common/net/code.dart';
 import 'package:gsy_app/common/style/gsy_style.dart';
 import 'package:gsy_app/common/utils/common_utils.dart';

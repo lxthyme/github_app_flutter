@@ -8,7 +8,7 @@ import 'package:gsy_app/common/style/gsy_style.dart';
 
 import 'custom_bouncing_scroll_physics.dart';
 import 'gsy_flare_pull_controller.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gsy_app/l10n/gen_l10n/app_localizations.dart';
 
 
 const double iosRefreshHeight = 140;

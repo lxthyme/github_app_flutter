@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:gsy_app/common/dao/repos_dao.dart';
+import 'package:gsy_app/common/dao/user_dao.dart';
 import 'package:gsy_app/common/utils/event_utils.dart';
 import 'package:gsy_app/model/Event.dart';
 import 'package:gsy_app/page/dynamic/dynamic_bloc.dart';
@@ -46,6 +47,15 @@ class _DynamicPageState extends State<DynamicPage>
   }
 
   Future<void> requestRefresh() async {
+    var username = _getStore().state.userInfo?.login;
+    if (username == null || username.isEmpty) {
+      debugPrint('-->[backup]get userinfo from local');
+      await UserDao.initUserInfo(_getStore());
+    }
+    debugPrint('-->_getStore(): ${_getStore()}');
+    debugPrint('-->_getStore().state: ${_getStore().state}');
+    debugPrint('-->_getStore().state.userInfo: ${_getStore().state.userInfo?.toJson()}');
+    debugPrint('-->_getStore().state.userInfo?.login: ${_getStore().state.userInfo?.login}');
     await dynamicBloc.requestRefresh(_getStore().state.userInfo?.login).catchError((e) {
       debugPrint('-->[dynamic_page]error: $e');
     });
@@ -77,12 +87,12 @@ class _DynamicPageState extends State<DynamicPage>
     super.initState();
 
     WidgetsBinding.instance.addObserver(this);
-
-    ReposDao.getNewsVersion(context, false);
   }
 
   @override
   void didChangeDependencies() {
+    ReposDao.getNewsVersion(context, false);
+
     if (dynamicBloc.getDataLength() == 0) {
       dynamicBloc.changeNeedHeaderStatus(false);
 

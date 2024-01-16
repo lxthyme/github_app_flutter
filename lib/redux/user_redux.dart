@@ -14,6 +14,7 @@ final UserReducer = combineReducers<User?>([
 
 User? _updateLoaded(User? user, action) {
   user = action.userInfo;
+  debugPrint('-->UserReducer -> _updateLoaded: ${user?.toJson()}');
   return user;
 }
 
@@ -28,7 +29,7 @@ class FetchUserAction {}
 class UserInfoMiddleware implements MiddlewareClass<GSYState> {
   @override
   call(Store<GSYState> store, action, NextDispatcher next) {
-    if(action is UpdateUserAction) {
+    if (action is UpdateUserAction) {
       debugPrint("*********** UserInfoMiddleware *********** ");
     }
     next(action);
@@ -43,7 +44,7 @@ Stream<dynamic> userInfoEpic(Stream<dynamic> actions, EpicStore<GSYState> store)
   }
 
   return actions
-  .whereType<FetchUserAction>()
-  .debounce((event) => TimerStream(true, const Duration(milliseconds: 10)))
-  .switchMap((value) => _loadUserInfo());
+      .whereType<FetchUserAction>()
+      .debounce((event) => TimerStream(true, const Duration(milliseconds: 10)))
+      .switchMap((value) => _loadUserInfo());
 }

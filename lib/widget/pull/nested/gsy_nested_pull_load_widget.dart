@@ -5,7 +5,7 @@ import 'package:gsy_app/common/style/gsy_style.dart';
 
 import 'package:gsy_app/widget/pull/gsy_pull_load_widget.dart';
 import 'nested_refresh.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gsy_app/l10n/gen_l10n/app_localizations.dart';
 
 ///通用下上刷新控件
 class GSYNestedPullLoadWidget extends StatefulWidget {

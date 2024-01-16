@@ -13,23 +13,25 @@ import 'package:gsy_app/router.dart';
 void gsyHome() {
   // return runApp(const AssetsTest());
   return runApp(ConfigWrapper(
-      config: EnvConfig.fromJson(config),
-      child: FlutterReduxApp(initialRoute: RouterName.home),
-    ));
+    config: EnvConfig.fromJson(config),
+    child: FlutterReduxApp(initialRoute: RouterName.home),
+  ));
 }
+
 @pragma('vm:entry-point')
 void gsyLogin() {
   return runApp(ConfigWrapper(
-      config: EnvConfig.fromJson(config),
-      child: FlutterReduxApp(initialRoute: RouterName.login),
-    ));
+    config: EnvConfig.fromJson(config),
+    child: FlutterReduxApp(initialRoute: RouterName.login),
+  ));
 }
+
 @pragma('vm:entry-point')
 void gsyAssetTest() {
   return runApp(ConfigWrapper(
-      config: EnvConfig.fromJson(config),
-      child: FlutterReduxApp(initialRoute: RouterName.assetTest),
-    ));
+    config: EnvConfig.fromJson(config),
+    child: FlutterReduxApp(initialRoute: RouterName.assetTest),
+  ));
 }
 
 void main() {
@@ -45,7 +47,9 @@ void main() {
     // runApp(const AppTemplate(widget: LoginPage()));
     runApp(ConfigWrapper(
       config: EnvConfig.fromJson(config),
-      child: FlutterReduxApp(initialRoute: RouterName.assetTest),
+      child: FlutterReduxApp(
+        // initialRoute: RouterName.assetTest,
+      ),
     ));
     GestureBinding.instance.resamplingEnabled = true;
   }, (error, stack) {
@@ -53,8 +57,6 @@ void main() {
     debugPrint('-->[runZonedGuarded]stack: $stack');
   });
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

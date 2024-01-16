@@ -3,7 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gsy_app/common/style/gsy_style.dart';
 import 'package:gsy_app/widget/gsy_common_option_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gsy_app/l10n/gen_l10n/app_localizations.dart';
 
 class GSYWebView extends StatefulWidget {
   final String url;
