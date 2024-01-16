@@ -46,6 +46,10 @@ class _DynamicPageState extends State<DynamicPage>
   }
 
   Future<void> requestRefresh() async {
+    debugPrint('-->_getStore(): ${_getStore()}');
+    debugPrint('-->_getStore().state: ${_getStore().state}');
+    debugPrint('-->_getStore().state.userInfo: ${_getStore().state.userInfo?.toJson()}');
+    debugPrint('-->_getStore().state.userInfo?.login: ${_getStore().state.userInfo?.login}');
     await dynamicBloc.requestRefresh(_getStore().state.userInfo?.login).catchError((e) {
       debugPrint('-->[dynamic_page]error: $e');
     });

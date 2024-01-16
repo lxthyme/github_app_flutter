@@ -274,6 +274,8 @@ class Address {
   }
 
   static getOAuthUrl() {
+    // https://github.com/sessions/two-factor/app
+    // https://github.com/sessions/two-factor/webauthn
     return "https://github.com/login/oauth/authorize?client_id"
         "=${NetConfig.CLIENT_ID}&state=app&"
         "scope=user,repo,gist,notifications,read:org,workflow&"

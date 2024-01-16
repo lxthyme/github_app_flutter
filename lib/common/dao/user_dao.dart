@@ -26,6 +26,7 @@ class UserDao {
       Options(method: 'POST'),
     );
     dynamic resultData;
+    debugPrint('--> login res: $res');
     if (res != null && res.result) {
       var result = Uri.parse('gsy://oauth?${res.data}');
       var token = result.queryParameters['access_token'];
@@ -79,7 +80,7 @@ class UserDao {
     if (userText != null) {
       var userMap = json.decode(userText);
       User user = User.fromJson(userMap);
-      debugPrint('-->getUserInfoLocal: $user');
+      debugPrint('-->getUserInfoLocal: ${user.toJson()}');
       return DataResult(user, true);
     } else {
       return DataResult(null, false);
@@ -89,12 +90,14 @@ class UserDao {
   static getUserInfo(userName, {needDb = false}) async {
     UserInfoDbProvider provider = UserInfoDbProvider();
     next() async {
+      debugPrint('-->getUserInfo begin: $userName');
       var res;
       if (userName == null) {
         res = await httpManager.netFetch(Address.getMyUserInfo(), null, null, null);
       } else {
         res = await httpManager.netFetch(Address.getUserInfo(userName), null, null, null);
       }
+      debugPrint('-->getUserInfo: $res');
       if (res != null && res.result) {
         String starred = '---';
         if (res.data['type'] != 'Organization') {
@@ -112,7 +115,7 @@ class UserDao {
             provider.insert(userName, json.encode(user.toJson()));
           }
         }
-        debugPrint('-->getUserInfo: $user');
+        debugPrint('-->getUserInfo: ${user.toJson()}');
         return DataResult(user, true);
       } else {
         return DataResult(res.data, false);
