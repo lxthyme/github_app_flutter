@@ -4,7 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:gsy_app/common/dao/user_dao.dart';
 import 'package:gsy_app/common/net/address.dart';
 import 'package:gsy_app/common/utils/navigator_utils.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gsy_app/l10n/gen_l10n/app_localizations.dart';
 import 'package:gsy_app/redux/gsy_state.dart';
 import 'package:gsy_app/redux/login_redux.dart';
 

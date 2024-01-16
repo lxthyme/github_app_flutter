@@ -37,7 +37,7 @@ import 'package:gsy_app/common/net/trending/github_trending.dart';
 import 'package:gsy_app/common/utils/common_utils.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pub_semver/pub_semver.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gsy_app/l10n/gen_l10n/app_localizations.dart';
 
 /**
  * Created by guoshuyu

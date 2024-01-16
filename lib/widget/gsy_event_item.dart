@@ -6,7 +6,7 @@ import 'package:gsy_app/common/utils/navigator_utils.dart';
 import 'package:gsy_app/model/Event.dart';
 import 'package:gsy_app/model/Notification.dart' as Model;
 import 'package:gsy_app/model/RepoCommit.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gsy_app/l10n/gen_l10n/app_localizations.dart';
 import 'package:gsy_app/widget/gsy_card_item.dart';
 import 'package:gsy_app/widget/gsy_user_icon_widget.dart';
 

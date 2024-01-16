@@ -1,6 +1,7 @@
 # arb-dir: lib/l10n
 # project-dir: ./
-# synthetic-package: false
+synthetic-package: false
+output-dir: 'lib/l10n/gen_l10n'
 template-arb-file: intl_en.arb
 output-localization-file: app_localizations.dart
 output-class: AppLocalizations

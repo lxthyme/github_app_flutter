@@ -6,7 +6,7 @@ import 'package:gsy_app/common/utils/common_utils.dart';
 import 'package:gsy_app/common/utils/navigator_utils.dart';
 import 'package:gsy_app/env/config_wrapper.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:gsy_app/l10n/gen_l10n/app_localizations.dart';
 
 class DebugLabel {
   static bool hadShow = false;
