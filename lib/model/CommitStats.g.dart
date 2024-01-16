@@ -6,13 +6,11 @@ part of 'CommitStats.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CommitStats _$CommitStatsFromJson(Map<String, dynamic> json) {
-  return CommitStats(
-    json['total'] as int?,
-    json['additions'] as int?,
-    json['deletions'] as int?,
-  );
-}
+CommitStats _$CommitStatsFromJson(Map<String, dynamic> json) => CommitStats(
+      json['total'] as int?,
+      json['additions'] as int?,
+      json['deletions'] as int?,
+    );
 
 Map<String, dynamic> _$CommitStatsToJson(CommitStats instance) =>
     <String, dynamic>{

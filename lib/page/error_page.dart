@@ -58,7 +58,7 @@ class ErrorPageState extends State<ErrorPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
              Image(
-                  image: AssetImage(GSYICons.DEFAULT_USER_ICON),
+                  image: AssetImage(GSYICons.DEFAULT_USER_ICON, package: 'gsy_app'),
                   width: 90.0,
                   height: 90.0),
               SizedBox(

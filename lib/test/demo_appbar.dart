@@ -71,7 +71,7 @@ class ImageAppbar extends StatelessWidget implements PreferredSizeWidget {
         Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("static/images/logo.png"), fit: BoxFit.cover),
+                image: AssetImage("static/images/logo.png", package: 'gsy_app'), fit: BoxFit.cover),
           ),
         ),
         SafeArea(

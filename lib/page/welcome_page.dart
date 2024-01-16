@@ -11,7 +11,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rive/rive.dart';
 
 class WelcomePage extends StatefulWidget {
-  static String sName = '/';
   const WelcomePage({super.key});
 
   @override
@@ -67,7 +66,7 @@ class _WelcomePageState extends State<WelcomePage> {
           child: Stack(
             children: [
               const Center(
-                child: Image(image: AssetImage('static/images/welcome.png')),
+                child: Image(image: AssetImage('static/images/welcome.png', package: 'gsy_app')),
               ),
               Align(
                 alignment: Alignment(0, 0.3),

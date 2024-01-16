@@ -6,24 +6,29 @@ import 'package:gsy_app/app.dart';
 import 'package:gsy_app/env/config_wrapper.dart';
 import 'package:gsy_app/env/dev.dart';
 import 'package:gsy_app/env/env_config.dart';
-import 'package:gsy_app/page/assets-test.dart';
 import 'package:gsy_app/page/error_page.dart';
-import 'package:gsy_app/page/home/home_page.dart';
-import 'package:gsy_app/page/login/login_page.dart' as login;
+import 'package:gsy_app/router.dart';
 
 @pragma('vm:entry-point')
 void gsyHome() {
   // return runApp(const AssetsTest());
   return runApp(ConfigWrapper(
       config: EnvConfig.fromJson(config),
-      child: FlutterReduxApp(initialRoute: HomePage.sName),
+      child: FlutterReduxApp(initialRoute: RouterName.home),
     ));
 }
 @pragma('vm:entry-point')
 void gsyLogin() {
   return runApp(ConfigWrapper(
       config: EnvConfig.fromJson(config),
-      child: FlutterReduxApp(initialRoute: login.LoginPage.sName),
+      child: FlutterReduxApp(initialRoute: RouterName.login),
+    ));
+}
+@pragma('vm:entry-point')
+void gsyAssetTest() {
+  return runApp(ConfigWrapper(
+      config: EnvConfig.fromJson(config),
+      child: FlutterReduxApp(initialRoute: RouterName.assetTest),
     ));
 }
 
@@ -40,7 +45,7 @@ void main() {
     // runApp(const AppTemplate(widget: LoginPage()));
     runApp(ConfigWrapper(
       config: EnvConfig.fromJson(config),
-      child: const FlutterReduxApp(),
+      child: FlutterReduxApp(initialRoute: RouterName.assetTest),
     ));
     GestureBinding.instance.resamplingEnabled = true;
   }, (error, stack) {

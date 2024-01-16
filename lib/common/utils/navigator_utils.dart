@@ -4,6 +4,7 @@ import 'package:gsy_app/page/gsy_webview.dart';
 import 'package:gsy_app/page/home/home_page.dart';
 import 'package:gsy_app/page/login/login_page.dart';
 import 'package:gsy_app/page/login/login_webview.dart';
+import 'package:gsy_app/router.dart';
 import 'package:gsy_app/widget/never_overscroll_indicator.dart';
 
 class NavigatorUtils {
@@ -13,13 +14,13 @@ class NavigatorUtils {
   }
 
   static goHome(BuildContext context) {
-    debugPrint('-->[router]goHome: ${HomePage.sName}');
-    Navigator.pushReplacementNamed(context, HomePage.sName);
+    debugPrint('-->[router]goHome: ${RouterName.home}');
+    Navigator.pushReplacementNamed(context, RouterName.home);
   }
 
   static goLogin(BuildContext context) {
-    debugPrint('-->[router]goLogin: ${LoginPage.sName}');
-    Navigator.pushReplacementNamed(context, LoginPage.sName);
+    debugPrint('-->[router]goLogin: ${RouterName.login}');
+    Navigator.pushReplacementNamed(context, RouterName.login);
   }
 
   static gotoPhotoViewPage(BuildContext context, String? url) {
