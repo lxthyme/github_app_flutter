@@ -16,7 +16,7 @@ class AssetsTest extends StatelessWidget {
             child: Column(
               children: [
                 Text('Assets Test'),
-                Image(image: AssetImage('packages/static/images/logo.png')),
+                Image(image: AssetImage('static/images/logo.png', package: 'gsy_app')),
                 // Image(image: AssetImage('static/images/logo.png', package: 'gsy_app')),
               ],
             ),
