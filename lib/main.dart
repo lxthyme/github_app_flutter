@@ -7,32 +7,6 @@ import 'package:gsy_app/env/config_wrapper.dart';
 import 'package:gsy_app/env/dev.dart';
 import 'package:gsy_app/env/env_config.dart';
 import 'package:gsy_app/page/error_page.dart';
-import 'package:gsy_app/router.dart';
-
-@pragma('vm:entry-point')
-void gsyHome() {
-  // return runApp(const AssetsTest());
-  return runApp(ConfigWrapper(
-    config: EnvConfig.fromJson(config),
-    child: FlutterReduxApp(initialRoute: RouterName.home),
-  ));
-}
-
-@pragma('vm:entry-point')
-void gsyLogin() {
-  return runApp(ConfigWrapper(
-    config: EnvConfig.fromJson(config),
-    child: FlutterReduxApp(initialRoute: RouterName.login),
-  ));
-}
-
-@pragma('vm:entry-point')
-void gsyAssetTest() {
-  return runApp(ConfigWrapper(
-    config: EnvConfig.fromJson(config),
-    child: FlutterReduxApp(initialRoute: RouterName.assetTest),
-  ));
-}
 
 void main() {
   runZonedGuarded(() {
