@@ -81,9 +81,10 @@ class UserDao {
     if (userText != null) {
       var userMap = json.decode(userText);
       User user = User.fromJson(userMap);
-      debugPrint('-->getUserInfoLocal: ${user.toJson()}');
+      debugPrint('-->getUserInfoLocal[1]: ${user.toJson()}');
       return DataResult(user, true);
     } else {
+      debugPrint('-->getUserInfoLocal[2]: null');
       return DataResult(null, false);
     }
   }
