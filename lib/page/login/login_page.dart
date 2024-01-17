@@ -7,6 +7,7 @@ import 'package:gsy_app/common/utils/navigator_utils.dart';
 import 'package:gsy_app/l10n/gen_l10n/app_localizations.dart';
 import 'package:gsy_app/redux/gsy_state.dart';
 import 'package:gsy_app/redux/login_redux.dart';
+import 'package:gsy_app/router.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -45,6 +46,12 @@ class LoginPage extends StatelessWidget {
                     goMain(context);
                   },
                   child: const Text('去首页'),
+                ),
+                CupertinoButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, RouterName.assetTest);
+                  },
+                  child: const Text('Asset test'),
                 ),
               ],
             ),

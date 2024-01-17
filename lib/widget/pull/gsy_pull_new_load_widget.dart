@@ -1,4 +1,6 @@
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:flare_flutter/provider/asset_flare.dart';
+import 'package:flutter/services.dart';
 
 import 'package:gsy_app/widget/pull/gsy_refresh_sliver.dart'
     as IOS;
@@ -341,9 +343,9 @@ class _GSYPullLoadWidgetState extends State<GSYPullLoadWidget>
         ///动态大小处理
         height:
             pulledExtent > iosRefreshHeight ? pulledExtent : iosRefreshHeight,
-        child: FlareActor(
+        child: FlareActor.asset(
             //"static/file/Space-Demo.flr",
-            "static/file/loading_world_now.flr",
+                AssetFlare(bundle: rootBundle, name: 'packages/gsy_app/static/file/loading_world_now.flr'),
             alignment: Alignment.topCenter,
             fit: BoxFit.cover,
             controller: this,

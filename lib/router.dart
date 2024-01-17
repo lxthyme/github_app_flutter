@@ -13,7 +13,7 @@ class RouterName {
     switch (router) {
       case '/': return () => const WelcomePage();
       case 'home': return () => const HomePage();
-      case 'assetTest': return () => const AssetsTest();
+      case 'assetTest': return () => AssetsTest();
       case 'login': return () => const LoginPage();
     }
     return () => const WelcomePage();

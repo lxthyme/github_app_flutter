@@ -100,7 +100,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> with HttpErrorListene
             RouterName.assetTest: (context) {
               DebugLabel.showDebugLabel(context);
               debugPrint('-->router: AssetsTest');
-              return const AssetsTest();
+              return AssetsTest();
             },
             RouterName.welcome: (context) {
               DebugLabel.showDebugLabel(context);
