@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gsy_app/model/CommonListDataType.dart';
 import 'package:gsy_app/page/gsy_webview.dart';
 import 'package:gsy_app/page/home/home_page.dart';
 import 'package:gsy_app/page/login/login_page.dart';
 import 'package:gsy_app/page/login/login_webview.dart';
+import 'package:gsy_app/page/todo-page.dart';
 import 'package:gsy_app/router.dart';
 import 'package:gsy_app/widget/never_overscroll_indicator.dart';
 
@@ -25,15 +27,31 @@ class NavigatorUtils {
 
   static gotoPhotoViewPage(BuildContext context, String? url) {
     debugPrint('-->[router]gotoPhotoViewPage: $url');
-    // Navigator.pushNamed(context, PhotoViewP)
+    // Navigator.pushNamed(context, const TODOPage('gotoPhotoViewPage'));
+    navigatorRouter(context, const TODOPage('gotoPhotoViewPage'));
   }
 
   static goPerson(BuildContext context, String? userName) {
-    // navigatorRouter(context, PersonPa)
+    navigatorRouter(context, const TODOPage('goPerson'));
   }
 
   static goDebugDataPage(BuildContext context) {
-    // return navigatorRouter(context, widget)
+    return navigatorRouter(context, const TODOPage('goDebugDataPage'));
+  }
+
+  static gotoCommonList(
+    BuildContext context,
+    String? title,
+    String showType,
+    CommonListDataType dataType, {
+    String? userName,
+    String? reposName,
+  }) {
+    navigatorRouter(context, TODOPage('NotifyPage: ${{title, showType, dataType, userName, reposName}}'));
+  }
+
+  static Future goNotifyPage(BuildContext context) {
+    return navigatorRouter(context, const TODOPage('NotifyPage'));
   }
 
   static Future goReposDetail(BuildContext context, String? userName, String? reposName) {
