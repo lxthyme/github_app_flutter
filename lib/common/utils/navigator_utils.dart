@@ -6,6 +6,7 @@ import 'package:gsy_app/page/home/home_page.dart';
 import 'package:gsy_app/page/login/login_page.dart';
 import 'package:gsy_app/page/login/login_webview.dart';
 import 'package:gsy_app/page/todo-page.dart';
+import 'package:gsy_app/page/user/person_page.dart';
 import 'package:gsy_app/router.dart';
 import 'package:gsy_app/widget/never_overscroll_indicator.dart';
 
@@ -32,7 +33,7 @@ class NavigatorUtils {
   }
 
   static goPerson(BuildContext context, String? userName) {
-    navigatorRouter(context, const TODOPage('goPerson'));
+    navigatorRouter(context, PersonPage(userName));
   }
 
   static goDebugDataPage(BuildContext context) {
@@ -69,6 +70,30 @@ class NavigatorUtils {
             double end = 1;
             var curve = Curves.ease;
 
+            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+            return Align(
+              child: SizeTransition(
+                sizeFactor: animation.drive(tween),
+                child: NeverOverScrollIndicator(
+                  needOverload: false,
+                  child: child,
+                ),
+              ),
+            );
+          },
+        ));
+  }
+
+  static Future goHonorListPage(BuildContext context, List? list) {
+    return Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => const TODOPage('HonorListPage(list)'),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            double begin = 0;
+            double end = 1;
+            var curve = Curves.ease;
             var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
             return Align(

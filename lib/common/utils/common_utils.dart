@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:gsy_app/common/config/config.dart';
 import 'package:gsy_app/common/net/address.dart';
 import 'package:gsy_app/common/style/gsy_style.dart';
 import 'package:gsy_app/common/utils/navigator_utils.dart';

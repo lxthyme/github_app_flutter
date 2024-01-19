@@ -13,7 +13,7 @@ class HttpManager {
   static const CONTENT_TYPE_JSON = "application/json";
   static const CONTENT_TYPE_FORM = "application/x-www-form-urlencoded";
 
-  Dio _dio = Dio();
+  final Dio _dio = Dio();
 
   final TokenInterceptors _tokenInterceptors = TokenInterceptors();
 
