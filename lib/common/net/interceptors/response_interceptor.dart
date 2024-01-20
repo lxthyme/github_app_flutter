@@ -16,7 +16,6 @@ class ResponseInterceptors extends InterceptorsWrapper {
         value = ResultData(response.data, true, Code.SUCCESS, headers: response.headers);
       }
     } catch (e) {
-      debugPrint('-->response[${options.path}]: $e');
       value = ResultData(response.data, false, response.statusCode, headers: response.headers);
     }
     response.data = value;

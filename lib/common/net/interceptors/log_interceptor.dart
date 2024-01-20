@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:gsy_app/common/config/config.dart';
 
 /**
  * Log 拦截器
@@ -19,14 +18,7 @@ class LogsInterceptors extends InterceptorsWrapper {
 
   @override
   onRequest(RequestOptions options, handler) async {
-    if (Config.DEBUG!) {
-      debugPrint("-->onRequest[1]: ${options.path} ${options.method}");
-      options.headers.forEach((k, v) => options.headers[k] = v ?? "");
-      debugPrint('-->onRequest[2]: ${options.headers.toString()}');
-      if (options.data != null) {
-        debugPrint('-->onRequest[3]: ${options.data.toString()}');
-      }
-    }
+    var error;
     try {
       addLogic(sRequestHttpUrl, options.path);
       var data;
@@ -43,16 +35,24 @@ class LogsInterceptors extends InterceptorsWrapper {
       }
       addLogic(sHttpRequest, map);
     } catch (e) {
-      debugPrint('-->onRequest error: $e');
+      error = e;
     }
-    return super.onRequest(options, handler);
+    // debugPrint("""
+    // ╔═══════════ 🎈 onRequest 🎈 ═══════════
+    // ║ [${options.method}]${options.path}
+    // ║ headers: ${options.headers}
+    // ║ params: ${options.data}
+    // ║-------------------------------------
+    // ║ error: $error
+    // ╚═════════════════════════════════════
+    // """);
+    // return super.onRequest(options, handler);
+    return handler.next(options);
   }
 
   @override
   onResponse(Response response, handler) async {
-    if (Config.DEBUG!) {
-      debugPrint('-->onResponse: ${response.toString()}');
-    }
+    var error;
     switch (response.data.runtimeType) {
       case Map || List:
         {
@@ -62,7 +62,7 @@ class LogsInterceptors extends InterceptorsWrapper {
             addLogic(sResponsesHttpUrl, response.requestOptions.uri.toString());
             addLogic(sHttpResponses, data);
           } catch (e) {
-            debugPrint('-->onResponse error[1]: $e');
+            error = e;
           }
         }
       case String:
@@ -73,19 +73,27 @@ class LogsInterceptors extends InterceptorsWrapper {
             addLogic(sResponsesHttpUrl, response.requestOptions.uri.toString());
             addLogic(sHttpResponses, data);
           } catch (e) {
-            debugPrint('-->onResponse error[2]: $e');
+            error = e;
           }
         }
     }
-    return super.onResponse(response, handler);
+    debugPrint("""
+    ╔═══════════ 🎈 onResponse 🎈 ═══════════
+    ║ URL: [${response.requestOptions.method}]${response.realUri}
+    ║-------------------------------------
+    ║ Headers: ${response.requestOptions.headers}
+    ║ Parameters: ${response.requestOptions.data}
+    ║---------- 🎈 Response 🎈 ----------
+    ║ Response[${response.statusCode}-${response.data.result}]: ${response.data.data}
+    ║ Error: $error
+    ╚═════════════════════════════════════
+    """);
+    // return super.onResponse(response, handler);
+    return handler.next(response);
   }
 
   @override
   onError(DioException err, handler) async {
-    if (Config.DEBUG!) {
-      debugPrint('-->onError[1]: ${err.toString()}');
-      debugPrint('-->onError[2]: ${err.response?.toString()}');
-    }
     try {
       addLogic(sHttpErrorUrl, err.requestOptions.path);
       var errors = Map<String, dynamic>();
@@ -94,7 +102,19 @@ class LogsInterceptors extends InterceptorsWrapper {
     } catch (e) {
       debugPrint('-->onError: $e');
     }
-    return super.onError(err, handler);
+    debugPrint("""
+    ╔═══════════ 🎈 onError 🎈 ═══════════
+    ║ URL: [${err.requestOptions.method}]${err.response?.realUri}
+    ║-------------------------------------
+    ║ Headers: ${err.requestOptions.headers}
+    ║ Parameters: ${err.requestOptions.data}
+    ║---------- 🎈 Response 🎈 ----------
+    ║ Response[${err.response?.statusCode}]: ${err.response?.data}
+    ║ Error: $err
+    ╚═════════════════════════════════════
+    """);
+    // return super.onError(err, handler);
+    return handler.next(err);
   }
 
   static addLogic(List list, data) {
