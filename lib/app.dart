@@ -110,7 +110,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> with HttpErrorListene
             RouterName.home: (context) {
               // return NavigatorUtils.pageContainer(const HomePage(), context);
               debugPrint('-->router: HomePage');
-              return NavigatorUtils.pageContainer(const DynamicPage(), context);
+              return NavigatorUtils.pageContainer(const HomePage(), context);
             },
             RouterName.login: (context) {
               debugPrint('-->router: LoginPage');

@@ -18,7 +18,8 @@ class NavigatorUtils {
 
   static goHome(BuildContext context) {
     debugPrint('-->[router]goHome: ${RouterName.home}');
-    Navigator.pushReplacementNamed(context, RouterName.home);
+    // Navigator.pushReplacementNamed(context, RouterName.home);
+    Navigator.pushNamed(context, RouterName.home);
   }
 
   static goLogin(BuildContext context) {
@@ -60,11 +61,8 @@ class NavigatorUtils {
     return Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => Container(
-            child: const Center(
-              child: Text('RepositoryDetailPage(userName, reposName)'),
-            ),
-          ),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const TODOPage('RepositoryDetailPage(userName, reposName)'),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             double begin = 0;
             double end = 1;
@@ -116,6 +114,30 @@ class NavigatorUtils {
       const Center(
         child: Text('IssueDetailPage'),
       ),
+    );
+  }
+
+  static Future goSearchPage(BuildContext context, Offset centerPosition) {
+    return showGeneralDialog(
+      context: context,
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Builder(builder: (context) {
+          return pageContainer(const TODOPage('SearchPage(centerPosition)'), context);
+        });
+      },
+      barrierDismissible: false,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      barrierColor: const Color(0x01000000),
+      transitionDuration: const Duration(milliseconds: 150),
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeOut,
+          ),
+          child: child,
+        );
+      },
     );
   }
 

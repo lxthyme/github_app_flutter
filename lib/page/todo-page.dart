@@ -12,9 +12,14 @@ class TODOPage extends StatelessWidget {
     return StoreBuilder<GSYState>(builder: (context, vm) {
       return Material(
         color: GSYColors.white,
-        child: SafeArea(
-          child: Center(
-            child: Text(title),
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('TODO'),
+          ),
+          body: SafeArea(
+            child: Center(
+              child: Text(title),
+            ),
           ),
         ),
       );

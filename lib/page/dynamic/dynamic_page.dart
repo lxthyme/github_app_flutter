@@ -14,10 +14,10 @@ class DynamicPage extends StatefulWidget {
   const DynamicPage({super.key});
 
   @override
-  State<DynamicPage> createState() => _DynamicPageState();
+  State<DynamicPage> createState() => DynamicPageState();
 }
 
-class _DynamicPageState extends State<DynamicPage>
+class DynamicPageState extends State<DynamicPage>
     with AutomaticKeepAliveClientMixin<DynamicPage>, WidgetsBindingObserver {
   final DynamicBloc dynamicBloc = DynamicBloc();
 

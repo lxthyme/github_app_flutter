@@ -49,7 +49,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 CupertinoButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, RouterName.assetTest);
+                    Navigator.pushNamed(context, RouterName.assetTest);
                   },
                   child: const Text('Asset test'),
                 ),
