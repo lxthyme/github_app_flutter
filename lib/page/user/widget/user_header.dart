@@ -93,7 +93,7 @@ class UserHeaderItem extends StatelessWidget {
           );
         },
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: const EdgeInsets.only(left: 5, top: 5),
+        padding: const EdgeInsets.only(left: 5, right: 5),
         constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
         child: const Icon(
           Icons.more_horiz,
@@ -102,7 +102,11 @@ class UserHeaderItem extends StatelessWidget {
         ),
       ));
     }
-    return Row(children: list);
+    return Row(
+      // mainAxisSize: MainAxisSize.max,
+      // crossAxisAlignment: CrossAxisAlignment.center,
+      children: list,
+    );
   }
 
   _renderImg(BuildContext context) {
@@ -117,7 +121,7 @@ class UserHeaderItem extends StatelessWidget {
       constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
       child: ClipOval(
         child: FadeInImage.assetNetwork(
-          placeholder: GSYICons.DEFAULT_USER_ICON,
+          placeholder: '${GSYICons.PACKAGE_PREFIX}${GSYICons.DEFAULT_USER_ICON}',
           image: userInfo.avatar_url ?? GSYICons.DEFAULT_REMOTE_PIC,
           fit: BoxFit.fitWidth,
           width: 80,
@@ -159,7 +163,7 @@ class UserHeaderItem extends StatelessWidget {
           GSYConstant.smallSubLightText,
           GSYColors.subLightTextColor,
           10,
-          padding: 0,
+          padding: 3,
         ),
       ],
     );
@@ -225,6 +229,7 @@ class UserHeaderItem extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Text(
                 userInfo.bio ?? '',
+                // '${userInfo.bio}_${userInfo.bio}_${userInfo.bio}',
                 style: GSYConstant.smallSubLightText,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
@@ -263,7 +268,7 @@ class UserHeaderBottom extends StatelessWidget {
   _getBottomItem(String? title, var value, onPressed) {
     String data = value.toString();
     TextStyle valueStyle =
-        (value == null && value.toString().length > 6) ? GSYConstant.minText : GSYConstant.smallSubLightText;
+        (value != null && value.toString().length > 6) ? GSYConstant.minText : GSYConstant.smallSubLightText;
     TextStyle titleStyle =
         (title != null && title.toString().length > 6) ? GSYConstant.minText : GSYConstant.smallSubLightText;
 

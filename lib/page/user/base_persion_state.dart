@@ -96,7 +96,7 @@ abstract class BasePersonState<T extends StatefulWidget> extends State<T>
   @protected
   List<Widget> sliverBuilder(BuildContext context, bool innerBoxIsScrolled, User userInfo, Color? notifyColor,
       String beStaredCount, refreshCallBack) {
-    double headerSize = 210;
+    double headerSize = 260;
     double bottomSize = 70;
     double chartSize = (userInfo.login != null && userInfo.type == 'Organization') ? 70 : 215;
     return <Widget>[
@@ -183,9 +183,11 @@ abstract class BasePersonState<T extends StatefulWidget> extends State<T>
 
   getHonor(name) {
     ReposDao.getUserRepository100StatusDao(name).then((res) {
-      if (isShow) {
-        honorModel.beStaredCount = res.data['stared'];
-        honorModel.honorList = res.data['list'];
+      if (res != null && res.result) {
+        if (isShow) {
+          honorModel.beStaredCount = res.data['stared'];
+          honorModel.honorList = res.data['list'];
+        }
       }
     });
   }

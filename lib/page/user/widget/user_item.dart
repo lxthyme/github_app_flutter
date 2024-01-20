@@ -26,7 +26,7 @@ class UserItem extends StatelessWidget {
       onPressed: null,
       icon: ClipOval(
         child: FadeInImage.assetNetwork(
-          placeholder: GSYICons.DEFAULT_USER_ICON,
+          placeholder: '${GSYICons.PACKAGE_PREFIX}${GSYICons.DEFAULT_USER_ICON}',
           image: userItemVM.userPic ?? '',
           fit: BoxFit.fitWidth,
           width: 40,
