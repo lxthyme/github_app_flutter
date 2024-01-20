@@ -77,15 +77,19 @@ class LogsInterceptors extends InterceptorsWrapper {
           }
         }
     }
+    var date = DateTime.now();
     debugPrint("""
     ╔═══════════ 🎈 onResponse 🎈 ═══════════
+    ║ date: $date
     ║ URL: [${response.requestOptions.method}]${response.realUri}
     ║-------------------------------------
     ║ Headers: ${response.requestOptions.headers}
     ║ Parameters: ${response.requestOptions.data}
     ║---------- 🎈 Response 🎈 ----------
-    ║ Response[${response.statusCode}-${response.data.result}]: ${response.data.data}
+    ║ Response[${response.statusCode}-${response.data.result}]: ${response.data.data.toString().length > 200 ? response.data.data.toString().substring(0, 200) : response.data.data}
     ║ Error: $error
+    ║ URL: [${response.requestOptions.method}]${response.realUri}
+    ║ date: $date
     ╚═════════════════════════════════════
     """);
     // return super.onResponse(response, handler);
@@ -102,8 +106,10 @@ class LogsInterceptors extends InterceptorsWrapper {
     } catch (e) {
       debugPrint('-->onError: $e');
     }
+    var date = DateTime.now();
     debugPrint("""
     ╔═══════════ 🎈 onError 🎈 ═══════════
+    ║ date: $date
     ║ URL: [${err.requestOptions.method}]${err.response?.realUri}
     ║-------------------------------------
     ║ Headers: ${err.requestOptions.headers}
@@ -111,6 +117,8 @@ class LogsInterceptors extends InterceptorsWrapper {
     ║---------- 🎈 Response 🎈 ----------
     ║ Response[${err.response?.statusCode}]: ${err.response?.data}
     ║ Error: $err
+    ║ URL: [${err.requestOptions.method}]${err.response?.realUri}
+    ║ date: $date
     ╚═════════════════════════════════════
     """);
     // return super.onError(err, handler);
