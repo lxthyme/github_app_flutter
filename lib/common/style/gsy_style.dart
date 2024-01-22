@@ -213,6 +213,7 @@ class GSYConstant {
 class GSYICons {
   static const String FONT_FAMILY = 'wxcIconFont';
 
+  static const String PACKAGE_PREFIX = 'packages/gsy_app/';
   static const String DEFAULT_USER_ICON = 'static/images/logo.png';
   static const String DEFAULT_IMAGE = 'static/images/default_img.png';
   static const String DEFAULT_REMOTE_PIC =

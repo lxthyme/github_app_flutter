@@ -19,7 +19,8 @@ class TokenInterceptors extends InterceptorsWrapper {
     if (_token != null) {
       options.headers['Authorization'] = _token;
     }
-    return super.onRequest(options, handler);
+    // return super.onRequest(options, handler);
+    return handler.next(options);
   }
 
   @override
@@ -33,7 +34,8 @@ class TokenInterceptors extends InterceptorsWrapper {
     } catch (e) {
       debugPrint('-->onResponse Error: $e');
     }
-    return super.onResponse(response, handler);
+    // return super.onResponse(response, handler);
+    return handler.next(response);
   }
 
   clearAuthorization() {

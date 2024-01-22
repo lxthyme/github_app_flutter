@@ -1,4 +1,6 @@
+import 'package:flare_flutter/provider/asset_flare.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:gsy_app/common/dao/user_dao.dart';
 import 'package:gsy_app/common/style/gsy_style.dart';
@@ -88,7 +90,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   width: size,
                   height: size,
                   child: RiveAnimation.asset(
-                    'static/file/launch.riv',
+                    'packages/gsy_app/static/file/launch.riv',
                     animations: ['lookup'],
                     onInit: (arb) {
                       var controller = StateMachineController.fromArtboard(arb, 'birb');

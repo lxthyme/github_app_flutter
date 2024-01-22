@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gsy_app/common/net/code.dart';
 import 'package:gsy_app/common/net/interceptors/error_interceptor.dart';
 import 'package:gsy_app/common/net/interceptors/header_interceptor.dart';
+import 'package:gsy_app/common/net/interceptors/log_interceptor.dart';
 import 'package:gsy_app/common/net/interceptors/response_interceptor.dart';
 import 'package:gsy_app/common/net/interceptors/token_interceptor.dart';
 import 'package:gsy_app/common/net/result_data.dart';
@@ -13,16 +14,16 @@ class HttpManager {
   static const CONTENT_TYPE_JSON = "application/json";
   static const CONTENT_TYPE_FORM = "application/x-www-form-urlencoded";
 
-  Dio _dio = Dio();
+  final Dio _dio = Dio();
 
   final TokenInterceptors _tokenInterceptors = TokenInterceptors();
 
   HttpManager() {
     _dio.interceptors.add(HeaderInterceptors());
     _dio.interceptors.add(_tokenInterceptors);
-    _dio.interceptors.add(LogInterceptor());
     _dio.interceptors.add(ErrorInterceptors());
     _dio.interceptors.add(ResponseInterceptors());
+    _dio.interceptors.add(LogsInterceptors());
   }
 
   Future<ResultData?> netFetch(url, params, Map<String, dynamic>? header, Options? options, {noTip = false}) async {
@@ -39,7 +40,6 @@ class HttpManager {
     }
 
     resultError(DioException e) {
-      debugPrint('-->resultError: $e');
       Response? errorResponse;
       if (e.response != null) {
         errorResponse = e.response;
@@ -60,14 +60,10 @@ class HttpManager {
 
     Response response;
     try {
-      debugPrint('-->begin[1] request: $url');
       response = await _dio.request(url, data: params, options: options);
-      debugPrint('-->begin[1.2]');
     } on DioException catch (e) {
-      debugPrint('-->begin[2]: $e');
       return resultError(e);
     }
-    debugPrint('-->begin[3]');
     if (response.data is DioException) {
       return resultError(response.data);
     }

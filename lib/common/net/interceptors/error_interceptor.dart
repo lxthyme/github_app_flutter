@@ -15,6 +15,7 @@ class ErrorInterceptors extends InterceptorsWrapper {
               requestOptions: options,
               data: ResultData(Code.errorHandleFunction(Code.NETWORK_ERROR, '', false), false, Code.NETWORK_ERROR))));
     }
-    return super.onRequest(options, handler);
+    // return super.onRequest(options, handler);
+    return handler.next(options);
   }
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gsy_app/model/CommonListDataType.dart';
 import 'package:gsy_app/page/gsy_webview.dart';
 import 'package:gsy_app/page/home/home_page.dart';
 import 'package:gsy_app/page/login/login_page.dart';
 import 'package:gsy_app/page/login/login_webview.dart';
+import 'package:gsy_app/page/todo-page.dart';
+import 'package:gsy_app/page/user/person_page.dart';
 import 'package:gsy_app/router.dart';
 import 'package:gsy_app/widget/never_overscroll_indicator.dart';
 
@@ -15,7 +18,8 @@ class NavigatorUtils {
 
   static goHome(BuildContext context) {
     debugPrint('-->[router]goHome: ${RouterName.home}');
-    Navigator.pushReplacementNamed(context, RouterName.home);
+    // Navigator.pushReplacementNamed(context, RouterName.home);
+    Navigator.pushNamed(context, RouterName.home);
   }
 
   static goLogin(BuildContext context) {
@@ -25,15 +29,31 @@ class NavigatorUtils {
 
   static gotoPhotoViewPage(BuildContext context, String? url) {
     debugPrint('-->[router]gotoPhotoViewPage: $url');
-    // Navigator.pushNamed(context, PhotoViewP)
+    // Navigator.pushNamed(context, const TODOPage('gotoPhotoViewPage'));
+    navigatorRouter(context, const TODOPage('gotoPhotoViewPage'));
   }
 
   static goPerson(BuildContext context, String? userName) {
-    // navigatorRouter(context, PersonPa)
+    navigatorRouter(context, PersonPage(userName));
   }
 
   static goDebugDataPage(BuildContext context) {
-    // return navigatorRouter(context, widget)
+    return navigatorRouter(context, const TODOPage('goDebugDataPage'));
+  }
+
+  static gotoCommonList(
+    BuildContext context,
+    String? title,
+    String showType,
+    CommonListDataType dataType, {
+    String? userName,
+    String? reposName,
+  }) {
+    navigatorRouter(context, TODOPage('NotifyPage: ${{title, showType, dataType, userName, reposName}}'));
+  }
+
+  static Future goNotifyPage(BuildContext context) {
+    return navigatorRouter(context, const TODOPage('NotifyPage'));
   }
 
   static Future goReposDetail(BuildContext context, String? userName, String? reposName) {
@@ -41,16 +61,37 @@ class NavigatorUtils {
     return Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => Container(
-            child: const Center(
-              child: Text('RepositoryDetailPage(userName, reposName)'),
-            ),
-          ),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const TODOPage('RepositoryDetailPage(userName, reposName)'),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             double begin = 0;
             double end = 1;
             var curve = Curves.ease;
 
+            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+            return Align(
+              child: SizeTransition(
+                sizeFactor: animation.drive(tween),
+                child: NeverOverScrollIndicator(
+                  needOverload: false,
+                  child: child,
+                ),
+              ),
+            );
+          },
+        ));
+  }
+
+  static Future goHonorListPage(BuildContext context, List? list) {
+    return Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => const TODOPage('HonorListPage(list)'),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            double begin = 0;
+            double end = 1;
+            var curve = Curves.ease;
             var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
             return Align(
@@ -73,6 +114,30 @@ class NavigatorUtils {
       const Center(
         child: Text('IssueDetailPage'),
       ),
+    );
+  }
+
+  static Future goSearchPage(BuildContext context, Offset centerPosition) {
+    return showGeneralDialog(
+      context: context,
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Builder(builder: (context) {
+          return pageContainer(const TODOPage('SearchPage(centerPosition)'), context);
+        });
+      },
+      barrierDismissible: false,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      barrierColor: const Color(0x01000000),
+      transitionDuration: const Duration(milliseconds: 150),
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeOut,
+          ),
+          child: child,
+        );
+      },
     );
   }
 

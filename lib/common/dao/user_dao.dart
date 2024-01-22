@@ -8,8 +8,10 @@ import 'package:gsy_app/common/local/local_storage.dart';
 import 'package:gsy_app/common/net/address.dart';
 import 'package:gsy_app/common/net/api.dart';
 import 'package:gsy_app/common/utils/common_utils.dart';
+import 'package:gsy_app/db/provider/user/user_orgs_db_provider.dart';
 import 'package:gsy_app/db/provider/user/userinfo_db_provider.dart';
 import 'package:gsy_app/model/User.dart';
+import 'package:gsy_app/model/UserOrg.dart';
 import 'package:gsy_app/redux/gsy_state.dart';
 import 'package:gsy_app/redux/locale_redux.dart';
 import 'package:gsy_app/redux/user_redux.dart';
@@ -81,9 +83,10 @@ class UserDao {
     if (userText != null) {
       var userMap = json.decode(userText);
       User user = User.fromJson(userMap);
-      debugPrint('-->getUserInfoLocal: ${user.toJson()}');
+      debugPrint('-->getUserInfoLocal[1]: ${user.toJson()}');
       return DataResult(user, true);
     } else {
+      debugPrint('-->getUserInfoLocal[2]: null');
       return DataResult(null, false);
     }
   }
@@ -91,14 +94,13 @@ class UserDao {
   static getUserInfo(userName, {needDb = false}) async {
     UserInfoDbProvider provider = UserInfoDbProvider();
     next() async {
-      debugPrint('-->getUserInfo begin: $userName');
       var res;
       if (userName == null) {
         res = await httpManager.netFetch(Address.getMyUserInfo(), null, null, null);
       } else {
         res = await httpManager.netFetch(Address.getUserInfo(userName), null, null, null);
       }
-      debugPrint('-->getUserInfo: $res');
+        debugPrint('-->getUserInfo: [$userName: ${res.result}]${res.data}');
       if (res != null && res.result) {
         String starred = '---';
         if (res.data['type'] != 'Organization') {
@@ -116,7 +118,6 @@ class UserDao {
             provider.insert(userName, json.encode(user.toJson()));
           }
         }
-        debugPrint('-->getUserInfo: ${user.toJson()}');
         return DataResult(user, true);
       } else {
         return DataResult(res.data, false);
@@ -161,5 +162,71 @@ class UserDao {
       }
     }
     return DataResult(null, false);
+  }
+
+  static checkFollowDao(name) async {
+    String url = Address.doFollow(name);
+    var res = await httpManager.netFetch(url, null, null, null, noTip: true);
+    return DataResult(res!.data, res.result);
+  }
+
+  static doFollowDao(name, bool followed) async {
+    String url = Address.doFollow(name);
+    var res = await httpManager.netFetch(url, null, null, Options(method: !followed ? 'PUT' : 'DELETE'), noTip: true);
+    return DataResult(res!.data, res.result);
+  }
+
+  static getMemberDao(userName, page) async {
+    String url = '${Address.getMember(userName)}${Address.getPageParams('?', page)}';
+    var res = await httpManager.netFetch(url, null, null, null);
+    debugPrint('-->getMemberDao[$url]: ${res.toString()}');
+    if (res != null && res.result) {
+      List<User> list = [];
+      var data = res.data;
+      if (data == null || data.length == 0) {
+        return DataResult(null, false);
+      }
+      for (int i = 0; i < data.length; i++) {
+        list.add(User.fromJson(data[i]));
+      }
+      return DataResult(list, true);
+    }
+    return DataResult(null, false);
+  }
+
+  static getUserOrgsDao(userName, page, {needDb = false}) async {
+    UserOrgsDbProvider provider = UserOrgsDbProvider();
+    next() async {
+      String url = '${Address.getUserOrgs(userName)}${Address.getPageParams('?', page)}';
+      var res = await httpManager.netFetch(url, null, null, null);
+      if (res != null && res.result) {
+        List<UserOrg> list = [];
+        var data = res.data;
+        if (data == null || data.length == 0) {
+          return DataResult(null, false);
+        }
+        for (int i = 0; i < data.length; i++) {
+          list.add(UserOrg.fromJson(data[i]));
+        }
+        if (needDb) {
+          provider.insert(userName, json.encode(data));
+        }
+        return DataResult(list, true);
+      } else {
+        return DataResult(null, false);
+      }
+    }
+
+    if (needDb) {
+      List<UserOrg>? list = await provider.geData(userName);
+      if (list == null) {
+        return await next();
+      }
+
+      DataResult dataResult = DataResult(list, true, next: next);
+      return dataResult;
+    }
+
+    return await next();
   }
 }
